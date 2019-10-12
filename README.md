@@ -89,7 +89,7 @@ order-secrets         Opaque                                1         24s
 Compile the processor docker image:
 
 ```cli
-❯ docker build -t keda-sample-dotnet-servicebus-topic .
+❯ docker build -t keda-sample-dotnet-servicebus-topic src\.
 ```
 
 We are ready to go! Now easily install the order processor along with its `ScaledObject`:
@@ -128,6 +128,10 @@ Configure the connection string in the tool via your favorite text editor, in th
 ```cli
 ❯ code .\src\Keda.Samples.Dotnet.OrderGenerator\Program.cs
 ```
+
+Example:
+
+    Endpoint=sb://<YOUR-SB-NAMESPACE>.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<YOUR-KEY>;EntityPath=orders
 
 Next, you can run the order generator via the CLI:
 
@@ -207,12 +211,6 @@ info: Keda.Samples.Dotnet.OrderProcessor.OrdersQueueProcessor[0]
 ❯ kubectl delete -f deploy/deploy-topic-processor.yaml --namespace keda-dotnet-sample
 ❯ kubectl delete -f deploy/deploy-secret.yaml --namespace keda-dotnet-sample
 ❯ kubectl delete namespace keda-dotnet-sample
-```
-
-### Delete the Azure Service Bus namespace
-
-```cli
-❯ az servicebus namespace delete --name <namespace-name> --resource-group <resource-group-name>
 ```
 
 ### Uninstall KEDA
